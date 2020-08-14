@@ -1,22 +1,21 @@
 import React, { useContext } from "react";
 //me traigo el tasklistcontext y el useContext para poder manejarlo
 import { TaskListContext } from "../contexts/TaskListContext";
-import Task from "./Task"; //me traigo mi componente
+import Task from "./Task";
 
 const TaskList = () => {
-  const { tasks } = useContext(TaskListContext); //le pasa el estado de la task que estaba asociado al contexto
+  const { tasks } = useContext(TaskListContext);
 
   return (
     <div>
-      {tasks.length ? ( //valido por medio del operator ternary
+      {tasks.length ? ( 
         <ul className="list">
           {tasks.map(task => {
             return <Task task={task} key={task.id} />;
-            //paso estas props a mi hijo task
           })}
         </ul>
       ) : (
-        <div className="no-tasks">No existen tasks</div>
+        <div className="no-tasks">Don't exists tasks</div>
       )}
     </div>
   );

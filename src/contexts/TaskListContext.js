@@ -1,53 +1,52 @@
-import React, { createContext, useState, useEffect } from 'react'
-import uuid from 'uuid'
+import React, { createContext, useState, useEffect } from 'react';
+import uuid from 'uuid';
 
-export const TaskListContext = createContext() //creo mi contexto
+export const TaskListContext = createContext(); 
 
-const TaskListContextProvider = props => { //defino props
-  const initialState = JSON.parse(localStorage.getItem('tasks')) || [] //la data la guardo en el localstorage para que no se pierda
+const TaskListContextProvider = props => {
+  const initialState = JSON.parse(localStorage.getItem('tasks')) || [];
 
-  const [tasks, setTasks] = useState(initialState) //funcion que inicializa mi state de task
+  const [tasks, setTasks] = useState(initialState);
 
   useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks)) //nombre de la collection y el value
+    localStorage.setItem('tasks', JSON.stringify(tasks)); 
   }, [tasks])
 
-  const [editItem, setEditItem] = useState(null) //creo un nuevo manejo de state, para editar
+  const [editItem, setEditItem] = useState(null);
 
   // Agregar tasks
   const addTask = title => {
-    setTasks([...tasks, { title, id: uuid() }]) //le doy un unique id
+    setTasks([...tasks, { title, id: uuid() }]); //le doy un unique id
   }
 
   // eliminar tasks
   const removeTask = id => {
-    setTasks(tasks.filter(task => task.id !== id)) //va a filtrar y verificar si son iguales o diferentes
+    setTasks(tasks.filter(task => task.id !== id)); //va a filtrar y verificar si son iguales o diferentes
   }
 
-  // limpiar tasks
+
   const clearList = () => {
-    setTasks([]) //limpia el estado de taks, con un empty array
-  }
+    setTasks([]); //limpia el estado de taks, con un empty array
+  };
 
   // buscar task
   const findItem = id => {
-    const item = tasks.find(task => task.id === id) //comparo la tarea con el id actual respecto al que viene
+    const item = tasks.find(task => task.id === id);
 
-    setEditItem(item) //modifico el estado del item
+    setEditItem(item);
   }
 
-  // editar task
   const editTask = (title, id) => {
-    const newTasks = tasks.map(task => (task.id === id ? { title, id } : task)) //retorno un nuevo objeto en el caso contrario
+    const newTasks = tasks.map(task => (task.id === id ? { title, id } : task)); 
 
-    console.log(newTasks)
+    console.log(newTasks);
 
-    setTasks(newTasks) //nueva instancia
-    setEditItem(null) //lo dejo en null
+    setTasks(newTasks);
+    setEditItem(null); 
   }
 
   return (
-    <TaskListContext.Provider //las propiedades de mi context, que quiero proveer a otros componentes en orden
+    <TaskListContext.Provider
       value={{
         tasks,
         addTask,
@@ -58,7 +57,7 @@ const TaskListContextProvider = props => { //defino props
         editItem
       }}
     >
-      {props.children} {/*con esto ya le puedo pasar estas props como hijos a mis demas componentes*/}
+      {props.children} {/*otra variante de como gestionar el children*/}
     </TaskListContext.Provider>
   )
 }

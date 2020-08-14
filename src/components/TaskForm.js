@@ -1,32 +1,32 @@
-import React, { useState, useContext, useEffect } from 'react'
-import { TaskListContext } from '../contexts/TaskListContext'
+import React, { useState, useContext, useEffect } from 'react';
+import { TaskListContext } from '../contexts/TaskListContext';
 //importo el contexto
 const TaskForm = () => {
-  const { addTask, clearList, editTask, editItem } = useContext(TaskListContext) //las recibo por destructuring
-  const [title, setTitle] = useState('') //el title empieza vacio
+  const { addTask, clearList, editTask, editItem } = useContext(TaskListContext);
+  const [title, setTitle] = useState('');
 
   const handleSubmit = e => {
-    e.preventDefault() //prevengo que recargue la pagina
-    if (!editItem) { //si no es una tarea a editar
-      addTask(title) //agrego la tarea con el titulo
-      setTitle('') //luego limpio el valor del estado del titulo
+    e.preventDefault();
+    if (!editItem) { 
+      addTask(title);
+      setTitle('');
     } else {
-      editTask(title, editItem.id) //sino: edito el titulo con ese id
+      editTask(title, editItem.id);
     }
-  }
+  };
 
   const handleChange = e => {
-    setTitle(e.target.value) //obtiene el nuevo valor de la caja
-  }
+    setTitle(e.target.value);
+  };
 
   useEffect(() => {
     if (editItem) {
-      setTitle(editItem.title) //edito el titulo
-      console.log(editItem)
+      setTitle(editItem.title);
+      console.log(editItem);
     } else {
-      setTitle('') //sino lo dejo como empty string
+      setTitle('');
     }
-  }, [editItem]) //va a volver a ejecutarse cuando haya cambios en el state de esta propiedad, bajo la condición de arriba
+  }, [editItem]);
 
   return (
     <form onSubmit={handleSubmit} className="form">
@@ -34,7 +34,7 @@ const TaskForm = () => {
         type="text"
         placeholder="Add Task..."
         value={title}
-        onChange={handleChange} //ir propagando los cambios
+        onChange={handleChange}
         required
         className="task-input"
       />

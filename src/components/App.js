@@ -1,8 +1,8 @@
 import React from "react";
 //me traigo el proveedor del tasklistcontext
 import TaskListContextProvider from "../contexts/TaskListContext";
-import TaskList from "./TaskList"; //el del listado
-import TaskForm from "./TaskForm"; //el componente del formulario
+import TaskList from "./TaskList";
+import TaskForm from "./TaskForm"; 
 
 import "../App.css";
 import Header from "./Header";
